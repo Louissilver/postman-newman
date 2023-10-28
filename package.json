@@ -4,7 +4,7 @@
   "description": "Instalar o Newman na máquina\r npm install -g newman",
   "main": "index.js",
   "scripts": {
-    "newman:all:reporter": "newman run collections/GoRest.postman_collection.json -e environments/GoRest.postman_environment.json --reporters cli,html --reporter-html-export report/index.html --reporter-html-template templates/htmlreqres.hbs",
+    "newman:all:reporter": "newman run collections/GoRest.postman_collection.json -e environments/GoRest.postman_environment.json --reporters cli,htmlextra --reporter-htmlextra-export report/index.html",
     "newman:all": "newman run collections/GoRest.postman_collection.json -e environments/GoRest.postman_environment.json",
     "newman:user": "newman run collections/GoRest.postman_collection.json -e environments/GoRest.postman_environment.json --folder User"
   },
@@ -16,7 +16,7 @@
   "author": "Luís Fernando da Silveira",
   "license": "ISC",
   "dependencies": {
-    "newman": "^4.0.0",
-    "newman-reporter-html": "^1.0.5"
+    "newman": "^5.0.0",
+    "newman-reporter-htmlextra": "^1.22.11"
   }
 }
