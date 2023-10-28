@@ -1,0 +1,27 @@
+name: Teste de API com Newman
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test-api:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v2
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Executar testes da API com Newman
+        run: |
+          npm install -g newman
+          newman run collections/GoRest.postman_collection.json -e environments/GoRest.postman_environment.json
