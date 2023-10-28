@@ -11,9 +11,10 @@ A API utilizada nos testes é a [Go REST](https://gorest.co.in/).
 ## Índice
 
 1. [Endpoints](#endpoints)
-2. [Postman Newman](#postman-newman)
-3. [Instalação](#instalação)
-4. [Scripts](#scripts)
+2. [Instalação](#instalação)
+3. [Scripts](#scripts)
+4. [Visualização do Relatório](#visualização-do-relatório)
+   - 1.1 [Artefatos gerados em pipeline](#artefatos-gerados-em-pipeline)
 5. [Autor](#autor)
 6. [Licença](#licença)
 7. [Palavras-chave](#palavras-chave)
@@ -53,10 +54,6 @@ npm install -g newman-reporter-html
 
 O projeto inclui os seguintes scripts para executar testes com o Newman:
 
-- Para executar todos os testes e gerar um relatório HTML:
-  ```bash
-  npm run newman:all:reporter
-  ```
 - Para executar todos os testes:
   ```bash
   npm run newman:all
@@ -66,6 +63,24 @@ O projeto inclui os seguintes scripts para executar testes com o Newman:
   npm run newman:user
   ```
   Certifique-se de que os arquivos de coleção (collections/GoRest.postman_collection.json) e ambiente (environments/GoRest.postman_environment.json) estão configurados corretamente antes de executar os scripts.
+
+## Geração de Relatório
+
+O comando a seguir permite que você execute a coleção do Postman e gere um relatório com htmlextra:
+
+```bash
+npm run newman:all:reporter
+```
+
+Este comando executa a coleção localizada em `collections/GoRest.postman_collection.json` usando o ambiente em `environments/GoRest.postman_environment.json` e gera um relatório em HTML com o reporter htmlextra, que é exportado para `report/index.html`.
+
+### Visualização do Relatório
+
+Após a execução do comando acima, o relatório gerado em HTML estará disponível no arquivo `report/index.html`. Você pode abrir este arquivo em seu navegador da web para visualizar o relatório detalhado das execuções da coleção. Certifique-se de que o caminho para o arquivo HTML corresponda ao local onde você o exportou.
+
+### Artefatos gerados em pipeline
+
+Caso você tenha executado a geração de relatório através de CI/CD, o relatório deve estar disponível nos artefatos da pipelina executada. Basta realizar o download do artefato e abrir com seu navegador.
 
 ## Autor
 
