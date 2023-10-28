@@ -2,6 +2,7 @@
 
 [![Version](https://img.shields.io/badge/version-1.0.0-brightgreen.svg)](https://github.com/seu-usuario/seu-repositorio)
 [![License](https://img.shields.io/badge/license-ISC-blue.svg)](LICENSE)
+[![Status de Testes](https://github.com/Louissilver/postman-newman/actions/workflows/test.yml/badge.svg)](https://github.com/Louissilver/postman-newman)
 
 Este é um projeto que demonstra como instalar e usar o Newman para executar testes em APIs com o Postman.
 
