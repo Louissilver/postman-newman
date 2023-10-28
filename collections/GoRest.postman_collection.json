@@ -573,151 +573,156 @@
 			]
 		},
 		{
-			"name": "Delete comment",
-			"event": [
+			"name": "Deletes",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
+					"name": "Delete comment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
 						}
-					}
-				},
-				"url": {
-					"raw": "{{URL API}}/public/v2/comments/{{commentId}}",
-					"host": [
-						"{{URL API}}"
 					],
-					"path": [
-						"public",
-						"v2",
-						"comments",
-						"{{commentId}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete post",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL API}}/public/v2/comments/{{commentId}}",
+							"host": [
+								"{{URL API}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"comments",
+								"{{commentId}}"
+							]
 						}
-					}
-				},
-				"url": {
-					"raw": "{{URL API}}/public/v2/posts/{{postId}}",
-					"host": [
-						"{{URL API}}"
-					],
-					"path": [
-						"public",
-						"v2",
-						"posts",
-						"{{postId}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete user",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
+					},
+					"response": []
 				},
 				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
+					"name": "Delete post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
 						}
-					}
-				},
-				"url": {
-					"raw": "{{URL API}}/public/v2/users/{{userId}}",
-					"host": [
-						"{{URL API}}"
 					],
-					"path": [
-						"public",
-						"v2",
-						"users",
-						"{{userId}}"
-					]
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL API}}/public/v2/posts/{{postId}}",
+							"host": [
+								"{{URL API}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"posts",
+								"{{postId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL API}}/public/v2/users/{{userId}}",
+							"host": [
+								"{{URL API}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		}
 	],
 	"auth": {
