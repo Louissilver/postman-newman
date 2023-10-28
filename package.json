@@ -16,7 +16,7 @@
   "author": "Luís Fernando da Silveira",
   "license": "ISC",
   "dependencies": {
-    "newman": "^6.0.0",
+    "newman": "^4.0.0",
     "newman-reporter-html": "^1.0.5"
   }
 }
