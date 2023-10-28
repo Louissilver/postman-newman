@@ -7,6 +7,7 @@ pipelines:
         caches:
           - node
         script:
-          - npm install -g newman
           - npm install
           - newman run collections/GoRest.postman_collection.json -e environments/GoRest.postman_environment.json
+        artifacts:
+          - report/**

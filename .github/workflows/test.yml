@@ -23,5 +23,10 @@ jobs:
 
       - name: Executar testes da API com Newman
         run: |
-          npm install -g newman
-          newman run collections/GoRest.postman_collection.json -e environments/GoRest.postman_environment.json
+          npm run newman:all:reporter
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: index.html
+          path: report/**
