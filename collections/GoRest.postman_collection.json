@@ -1,0 +1,786 @@
+{
+	"info": {
+		"_postman_id": "3b2e88b4-5238-4e51-ba86-d627ef8675d6",
+		"name": "GoRest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17399312",
+		"_collection_link": "https://bold-desert-667805.postman.co/workspace/DevWeb~8193cdb9-7b10-437b-bbf3-39b0f0fe527a/collection/17399312-3b2e88b4-5238-4e51-ba86-d627ef8675d6?action=share&source=collection_link&creator=17399312"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate expected values\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.name).to.equal(pm.globals.get(\"newName\"));\r",
+									"    pm.expect(jsonData.email).to.equal(pm.globals.get(\"newEmail\"));\r",
+									"});\r",
+									"\r",
+									"var id = pm.response.json().id;\r",
+									"pm.globals.set(\"userId\", id);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const randomFirstName = pm.variables.replaceIn('{{$randomFirstName}}');\r",
+									"const randomLastName = pm.variables.replaceIn('{{$randomLastName}}');\r",
+									"\r",
+									"pm.globals.set(\"newName\", `${randomFirstName} ${randomLastName}`);\r",
+									"pm.globals.set(\"newEmail\", `${randomFirstName}.${randomLastName}@mailinator.com`);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{newName}}\",\r\n    \"gender\": \"male\",\r\n    \"email\": \"{{newEmail}}\",\r\n    \"status\": \"active\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL API}}/public/v2/users",
+							"host": [
+								"{{URL API}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users"
+							]
+						},
+						"description": "{        \"type\": \"object\",        \"properties\": {            \"id\": { \"type\": \"number\" },            \"name\": { \"type\": \"string\" },            \"email\": { \"type\": \"string\", \"format\": \"email\" },            \"gender\": { \"type\": \"string\" },            \"status\": { \"type\": \"string\" }        },        \"required\": \\[\"id\", \"name\", \"email\", \"gender\", \"status\"\\]    }"
+					},
+					"response": []
+				},
+				{
+					"name": "Get users list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL API}}/public/v2/users",
+							"host": [
+								"{{URL API}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users"
+							]
+						},
+						"description": "{\"type\": \"array\", \"items\": { \"type\": \"object\", \"properties\": { \"id\": { \"type\": \"number\" }, \"name\": { \"type\": \"string\" }, \"email\": { \"type\": \"string\", \"format\": \"email\" }, \"gender\": { \"type\": \"string\" }, \"status\": { \"type\": \"string\" } }, \"required\": \\[\"id\", \"name\", \"email\", \"gender\", \"status\"\\] } }"
+					},
+					"response": []
+				},
+				{
+					"name": "Get user by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate expected values\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.name).to.equal(pm.globals.get(\"newName\"));\r",
+									"    pm.expect(jsonData.email).to.equal(pm.globals.get(\"newEmail\"));\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL API}}/public/v2/users/{{userId}}",
+							"host": [
+								"{{URL API}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"{{userId}}"
+							]
+						},
+						"description": "{        \"type\": \"object\",        \"properties\": {            \"id\": { \"type\": \"number\" },            \"name\": { \"type\": \"string\" },            \"email\": { \"type\": \"string\", \"format\": \"email\" },            \"gender\": { \"type\": \"string\" },            \"status\": { \"type\": \"string\" }        },        \"required\": \\[\"id\", \"name\", \"email\", \"gender\", \"status\"\\]    }"
+					},
+					"response": []
+				},
+				{
+					"name": "Update user",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const randomFirstName = pm.variables.replaceIn('{{$randomFirstName}}');\r",
+									"const randomLastName = pm.variables.replaceIn('{{$randomLastName}}');\r",
+									"\r",
+									"pm.globals.set(\"editName\", `${randomFirstName} ${randomLastName}`);\r",
+									"pm.globals.set(\"editEmail\", `${randomFirstName}.${randomLastName}@mailinator.com`);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate expected values\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.name).to.equal(pm.globals.get(\"editName\"));\r",
+									"    pm.expect(jsonData.email).to.equal(pm.globals.get(\"editEmail\"));\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{editName}}\",\r\n    \"gender\": \"male\",\r\n    \"email\": \"{{editEmail}}\",\r\n    \"status\": \"active\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL API}}/public/v2/users/{{userId}}",
+							"host": [
+								"{{URL API}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"{{userId}}"
+							]
+						},
+						"description": "{        \"type\": \"object\",        \"properties\": {            \"id\": { \"type\": \"number\" },            \"name\": { \"type\": \"string\" },            \"email\": { \"type\": \"string\", \"format\": \"email\" },            \"gender\": { \"type\": \"string\" },            \"status\": { \"type\": \"string\" }        },        \"required\": \\[\"id\", \"name\", \"email\", \"gender\", \"status\"\\]    }"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "Create post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate expected values\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.user_id).to.equal(pm.globals.get(\"userId\"));\r",
+									"});\r",
+									"\r",
+									"var id = pm.response.json().id;\r",
+									"pm.globals.set(\"postId\", id);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Vos dolores creber carpo rerum solvo.\",\r\n    \"body\": \"Expedita vesper amoveo. Accedo caute sopor. Perferendis vinculum voro. Custodia addo vix. Ustulo aqua tabesco. Esse vomica articulus. Bonus trucido adulatio. Voluptatem claro antiquus. Curto uberrime audio. Caste amiculum curvo. Utor omnis molestiae. Vapulus suffragium quaerat. Ipsum subito solium. Succedo tutamen aegrotatio.\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL API}}/public/v2/users/{{userId}}/posts",
+							"host": [
+								"{{URL API}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"{{userId}}",
+								"posts"
+							]
+						},
+						"description": "{ \"type\": \"object\", \"properties\": { \"id\": { \"type\": \"number\" }, \"user_id\": { \"type\": \"number\" }, \"title\":{\"type\":\"string\" }, \"body\": { \"type\": \"string\" } }, \"required\": \\[\"id\", \"user_id\", \"title\", \"body\"\\]}"
+					},
+					"response": []
+				},
+				{
+					"name": "Get posts list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL API}}/public/v2/posts",
+							"host": [
+								"{{URL API}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"posts"
+							]
+						},
+						"description": "{    \"type\": \"array\",    \"items\": {        \"type\": \"object\",        \"properties\": {            \"id\": { \"type\": \"number\" },            \"user_id\": { \"type\": \"number\" },            \"title\": { \"type\": \"string\" },            \"body\": { \"type\": \"string\" }        },        \"required\": \\[\"id\", \"user_id\", \"title\", \"body\"\\]    }}"
+					},
+					"response": []
+				},
+				{
+					"name": "Get post by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate expected values\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.id).to.equal(pm.globals.get(\"postId\"));\r",
+									"    pm.expect(jsonData.user_id).to.equal(pm.globals.get(\"userId\"));\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL API}}/public/v2/posts/{{postId}}",
+							"host": [
+								"{{URL API}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"posts",
+								"{{postId}}"
+							]
+						},
+						"description": "{        \"type\": \"object\",        \"properties\": {            \"id\": { \"type\": \"number\" },            \"user_id\": { \"type\": \"number\" },            \"title\": { \"type\": \"string\" },            \"body\": { \"type\": \"string\" }        },        \"required\": \\[\"id\", \"user_id\", \"title\", \"body\"\\]    }"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Update post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate expected values\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.id).to.equal(pm.globals.get(\"postId\"));\r",
+									"    pm.expect(jsonData.user_id).to.equal(pm.globals.get(\"userId\"));\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"[edit] Vos dolores creber carpo rerum solvo.\",\r\n    \"body\": \"[edit ]Expedita vesper amoveo. Accedo caute sopor. Perferendis vinculum voro. Custodia addo vix. Ustulo aqua tabesco. Esse vomica articulus. Bonus trucido adulatio. Voluptatem claro antiquus. Curto uberrime audio. Caste amiculum curvo. Utor omnis molestiae. Vapulus suffragium quaerat. Ipsum subito solium. Succedo tutamen aegrotatio.\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL API}}/public/v2/posts/{{postId}}",
+							"host": [
+								"{{URL API}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"posts",
+								"{{postId}}"
+							]
+						},
+						"description": "{    \"type\": \"object\",    \"properties\": {        \"id\": { \"type\": \"number\" },        \"user_id\": { \"type\": \"number\" },        \"title\": { \"type\": \"string\" },        \"body\": { \"type\": \"string\" }    },    \"required\": \\[\"id\", \"user_id\", \"title\", \"body\"\\]}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comments",
+			"item": [
+				{
+					"name": "Create comment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate expected values\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.name).to.equal(pm.globals.get(\"newName\"));\r",
+									"    pm.expect(jsonData.email).to.equal(pm.globals.get(\"newEmail\"));\r",
+									"});\r",
+									"\r",
+									"var id = pm.response.json().id;\r",
+									"pm.globals.set(\"commentId\", id);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{newName}}\",\r\n    \"email\": \"{{newEmail}}\",\r\n    \"body\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla interdum imperdiet quam ac rhoncus. In sodales lorem non enim elementum gravida. Nulla tempor odio nec augue mattis mollis. Donec vel elit dui. Nulla facilisi. Donec sit amet odio cursus, congue felis quis, pharetra purus. Suspendisse potenti. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL API}}/public/v2/posts/{{postId}}/comments",
+							"host": [
+								"{{URL API}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"posts",
+								"{{postId}}",
+								"comments"
+							]
+						},
+						"description": "{ \"type\": \"object\", \"properties\": { \"id\": { \"type\": \"number\" }, \"post_id\": { \"type\": \"number\" }, \"name\": { \"type\": \"string\" }, \"email\": { \"type\": \"string\", \"format\": \"email\" }, \"body\": { \"type\": \"string\" } }, \"required\": \\[\"id\", \"post_id\", \"name\", \"email\", \"body\"\\]}"
+					},
+					"response": []
+				},
+				{
+					"name": "Get comments list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL API}}/public/v2/posts/{{postId}}/comments",
+							"host": [
+								"{{URL API}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"posts",
+								"{{postId}}",
+								"comments"
+							]
+						},
+						"description": "{        \"type\": \"array\",        \"items\": {            \"type\": \"object\",            \"properties\": {                \"id\": { \"type\": \"number\" },                \"post_id\": { \"type\": \"number\" },                \"name\": { \"type\": \"string\" },                \"email\": { \"type\": \"string\" },                \"body\": { \"type\": \"string\" }            },            \"required\": \\[\"id\", \"post_id\", \"name\", \"email\", \"body\"\\]        }    }"
+					},
+					"response": []
+				},
+				{
+					"name": "Get comment by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate expected values\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.name).to.equal(pm.globals.get(\"newName\"));\r",
+									"    pm.expect(jsonData.email).to.equal(pm.globals.get(\"newEmail\"));\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL API}}/public/v2/comments/{{commentId}}",
+							"host": [
+								"{{URL API}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"comments",
+								"{{commentId}}"
+							]
+						},
+						"description": "{    \"type\": \"object\",    \"properties\": {        \"id\": { \"type\": \"number\" },        \"post_id\": { \"type\": \"number\" },        \"name\": { \"type\": \"string\" },        \"email\": { \"type\": \"string\", \"format\": \"email\" },        \"body\": { \"type\": \"string\" }    },    \"required\": \\[\"id\", \"post_id\", \"name\", \"email\", \"body\"\\]}"
+					},
+					"response": []
+				},
+				{
+					"name": "Update comment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate expected values\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.name).to.equal(\"[edit] \" + pm.globals.get(\"newName\"));\r",
+									"    pm.expect(jsonData.email).to.equal(\"edit.\" + pm.globals.get(\"newEmail\"));\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"[edit] {{newName}}\",\r\n    \"email\": \"edit.{{newEmail}}\",\r\n    \"body\": \"[edit] Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla interdum imperdiet quam ac rhoncus. In sodales lorem non enim elementum gravida. Nulla tempor odio nec augue mattis mollis. Donec vel elit dui. Nulla facilisi. Donec sit amet odio cursus, congue felis quis, pharetra purus. Suspendisse potenti. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL API}}/public/v2/comments/{{commentId}}",
+							"host": [
+								"{{URL API}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"comments",
+								"{{commentId}}"
+							]
+						},
+						"description": "{ \"type\": \"object\", \"properties\": { \"id\": { \"type\": \"number\" }, \"post_id\": { \"type\": \"number\" }, \"name\": { \"type\": \"string\" }, \"email\": { \"type\": \"string\", \"format\": \"email\" }, \"body\": { \"type\": \"string\" } }, \"required\": \\[\"id\", \"post_id\", \"name\", \"email\", \"body\"\\]}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete comment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL API}}/public/v2/comments/{{commentId}}",
+					"host": [
+						"{{URL API}}"
+					],
+					"path": [
+						"public",
+						"v2",
+						"comments",
+						"{{commentId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL API}}/public/v2/posts/{{postId}}",
+					"host": [
+						"{{URL API}}"
+					],
+					"path": [
+						"public",
+						"v2",
+						"posts",
+						"{{postId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL API}}/public/v2/users/{{userId}}",
+					"host": [
+						"{{URL API}}"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Validate response time is less than 1500ms\", function () {",
+					"  pm.expect(pm.response.responseTime).to.be.below(1500);",
+					"});",
+					"",
+					"if(pm.request.description !== undefined){",
+					"pm.test(\"Validate request schema\", function () {",
+					"    var schema = JSON.parse(pm.request.description.content.replace(/\\s/g, '').replace(/\\\\/g, ''))",
+					"    pm.expect(pm.response.json()).to.have.jsonSchema(schema);",
+					"});",
+					"}",
+					"",
+					"if(pm.request.method == \"POST\"){",
+					"    pm.test(\"Validate POST request: Status 201\", function(){",
+					"        pm.expect(pm.response.code).to.be.eq(201);",
+					"    })",
+					"}",
+					"",
+					"if(pm.request.method == \"GET\"){",
+					"    pm.test(\"Validate GET request: Status 200\", function(){",
+					"        pm.expect(pm.response.code).to.be.eq(200);",
+					"    })",
+					"}",
+					"",
+					"if(pm.request.method == \"PUT\"){",
+					"    pm.test(\"Validate PUT request: Status 200\", function(){",
+					"        pm.expect(pm.response.code).to.be.eq(200);",
+					"    })",
+					"}",
+					"",
+					"if(pm.request.method == \"DELETE\"){",
+					"    pm.test(\"Validate DELETE request: Status 204\", function(){",
+					"        pm.expect(pm.response.code).to.be.eq(204);",
+					"    })",
+					"}"
+				]
+			}
+		}
+	]
+}
